@@ -30,36 +30,25 @@ bun run build        # build every extension
 bun run lint         # lint every extension
 ```
 
-## Installing without running the dev server
+## Install
 
 ```sh
-cd extensions/matheme
-bunx ray build -e dist
+git clone git@github.com:smoosex/raycast-extensions.git
+cd raycast-extensions
+bun install
+cd extensions/matheme && bunx ray build -e dist
 ```
 
-Then run **Import Extension** from Raycast and select the `extensions/matheme` folder. The extension
-stays installed until you import it again, so there is no `ray develop` process to keep alive after
-every reboot. Repeat the two steps after pulling changes.
+Then run **Import Extension** in Raycast and select `extensions/matheme` (pick the `dist` folder if
+it asks for the built output). The extension then stays installed without a dev server running;
+repeat the build and the import after pulling changes.
 
-## Publishing to the Store
+If a previous `ray develop` session registered the same extension, quit it first — both write to
+`~/.config/raycast/extensions/matheme` and the last writer wins.
 
-Store submission is a PR against [raycast/extensions](https://github.com/raycast/extensions) that
-`ray publish` opens for you, so the requirements below have to be met before running it.
+## Why this is not on the Store
 
-- A **public** git repository containing the extension
-- `author` in `package.json` must be your **Raycast** account username, not the GitHub handle
-- `license: MIT`, current `@raycast/api`, at least one `categories` entry
-- A `package-lock.json` created with **npm** (Store CI builds with npm; `bun.lock` is not read)
-- `README.md` in the extension folder when setup is non-trivial, plus optional `CHANGELOG.md`
-- Screenshots captured with Raycast's **Capture Window** command (2000×1250 PNG, up to six)
-
-```sh
-cd extensions/matheme
-npm install            # produces the package-lock.json the CI expects
-bun run publish        # npx @raycast/api@latest publish
-```
-
-`matheme` itself is a local binary built from source, and Raycast review rejects extensions whose
-binary dependency cannot be fetched from a trusted location with hash verification. Publishing the
-binary (GitHub releases or a Homebrew tap) is the prerequisite for a Store release; until then the
-import flow above is the supported way to run this extension.
+Store review requires executable dependencies to come from a trusted location with hash
+verification, and `matheme` is a Go binary built locally from source. Publishing it (GitHub releases
+or a Homebrew tap) would be the prerequisite; until then the import flow above is the supported way
+to install this extension.
