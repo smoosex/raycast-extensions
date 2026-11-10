@@ -1,0 +1,316 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "matheme",
+  "title": "Matheme",
+  "description": "Switch a base16 theme across terminals, editors, the bar, the system appearance and the wallpaper.",
+  "icon": "extension-icon.png",
+  "author": "smoose",
+  "platforms": [
+    "macOS"
+  ],
+  "categories": [
+    "System"
+  ],
+  "license": "MIT",
+  "preferences": [
+    {
+      "name": "mathemePath",
+      "title": "matheme 路径",
+      "description": "matheme 可执行文件的绝对路径",
+      "type": "textfield",
+      "required": false,
+      "default": "~/.config/matheme/bin/matheme"
+    },
+    {
+      "name": "shellPath",
+      "title": "子进程 PATH",
+      "description": "传给 matheme 的 PATH，让它能找到 chezmoi、sketchybar、nvim 等",
+      "type": "textfield",
+      "required": false,
+      "default": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "name": "chezmoiEnable",
+      "title": "chezmoi 同步",
+      "description": "切换后把改动的文件 chezmoi add 回源仓库",
+      "type": "checkbox",
+      "default": true,
+      "label": "chezmoi 同步",
+      "required": false
+    },
+    {
+      "name": "wallpaperAuto",
+      "title": "壁纸",
+      "description": "按 config.toml 的 wallpaper.wallpapers 映射切换桌面壁纸",
+      "type": "checkbox",
+      "default": true,
+      "label": "壁纸",
+      "required": false
+    },
+    {
+      "name": "macosAppearanceEnable",
+      "title": "系统外观",
+      "description": "按主题的 type 切换 macOS 深色/浅色模式",
+      "type": "checkbox",
+      "default": true,
+      "label": "系统外观",
+      "required": false
+    },
+    {
+      "name": "neovimEnable",
+      "title": "Neovim",
+      "type": "checkbox",
+      "default": true,
+      "label": "Neovim",
+      "description": "切换 Neovim 的主题",
+      "required": false
+    },
+    {
+      "name": "alacrittyEnable",
+      "title": "Alacritty",
+      "type": "checkbox",
+      "default": true,
+      "label": "Alacritty",
+      "description": "切换 Alacritty 的主题",
+      "required": false
+    },
+    {
+      "name": "ghosttyEnable",
+      "title": "Ghostty",
+      "type": "checkbox",
+      "default": true,
+      "label": "Ghostty",
+      "description": "切换 Ghostty 的主题",
+      "required": false
+    },
+    {
+      "name": "kittyEnable",
+      "title": "Kitty",
+      "type": "checkbox",
+      "default": true,
+      "label": "Kitty",
+      "description": "切换 Kitty 的主题",
+      "required": false
+    },
+    {
+      "name": "tmuxEnable",
+      "title": "Tmux",
+      "type": "checkbox",
+      "default": true,
+      "label": "Tmux",
+      "description": "切换 Tmux 的主题",
+      "required": false
+    },
+    {
+      "name": "starshipEnable",
+      "title": "Starship",
+      "type": "checkbox",
+      "default": true,
+      "label": "Starship",
+      "description": "切换 Starship 的主题",
+      "required": false
+    },
+    {
+      "name": "sketchybarEnable",
+      "title": "SketchyBar",
+      "type": "checkbox",
+      "default": true,
+      "label": "SketchyBar",
+      "description": "切换 SketchyBar 的主题",
+      "required": false
+    },
+    {
+      "name": "herdrEnable",
+      "title": "Herdr",
+      "type": "checkbox",
+      "default": true,
+      "label": "Herdr",
+      "description": "切换 Herdr 的主题",
+      "required": false
+    },
+    {
+      "name": "opencodeEnable",
+      "title": "opencode",
+      "type": "checkbox",
+      "default": true,
+      "label": "opencode",
+      "description": "切换 opencode 的主题",
+      "required": false
+    },
+    {
+      "name": "piEnable",
+      "title": "pi",
+      "type": "checkbox",
+      "default": true,
+      "label": "pi",
+      "description": "切换 pi 的主题",
+      "required": false
+    },
+    {
+      "name": "rimeEnable",
+      "title": "Rime",
+      "type": "checkbox",
+      "default": true,
+      "label": "Rime",
+      "description": "切换 Rime 的主题",
+      "required": false
+    },
+    {
+      "name": "bordersEnable",
+      "title": "Borders",
+      "type": "checkbox",
+      "default": false,
+      "label": "Borders",
+      "description": "切换 Borders 的主题",
+      "required": false
+    },
+    {
+      "name": "alacrittyConfigPath",
+      "title": "Alacritty 配置",
+      "type": "textfield",
+      "required": false,
+      "default": "~/.config/alacritty/alacritty.toml",
+      "description": "Alacritty 配置 的路径"
+    },
+    {
+      "name": "alacrittyThemePath",
+      "title": "Alacritty 主题",
+      "type": "textfield",
+      "required": false,
+      "default": "~/.config/alacritty/theme.toml",
+      "description": "Alacritty 主题 的路径"
+    },
+    {
+      "name": "ghosttyThemePath",
+      "title": "Ghostty 主题",
+      "type": "textfield",
+      "required": false,
+      "default": "~/.config/ghostty/themes/matheme",
+      "description": "Ghostty 主题 的路径"
+    },
+    {
+      "name": "kittyThemePath",
+      "title": "Kitty 主题",
+      "type": "textfield",
+      "required": false,
+      "default": "~/.config/kitty/themes/matheme.conf",
+      "description": "Kitty 主题 的路径"
+    },
+    {
+      "name": "neovimInitPath",
+      "title": "Neovim init",
+      "type": "textfield",
+      "required": false,
+      "default": "~/.config/nvim/init.lua",
+      "description": "Neovim init 的路径"
+    },
+    {
+      "name": "neovimChadrcPath",
+      "title": "NvChad 配置",
+      "type": "textfield",
+      "required": false,
+      "default": "~/.config/nvim/lua/chadrc.lua",
+      "description": "NvChad 配置 的路径"
+    },
+    {
+      "name": "sketchybarThemePath",
+      "title": "SketchyBar 调色板",
+      "type": "textfield",
+      "required": false,
+      "default": "~/.config/sketchybar/helpers/theme/palette.lua",
+      "description": "SketchyBar 调色板 的路径"
+    },
+    {
+      "name": "starshipConfigPath",
+      "title": "Starship 配置",
+      "type": "textfield",
+      "required": false,
+      "default": "~/.config/starship/starship.toml",
+      "description": "Starship 配置 的路径"
+    },
+    {
+      "name": "tmuxSwitchScriptPath",
+      "title": "tmux 切换脚本",
+      "type": "textfield",
+      "required": false,
+      "default": "~/.local/share/tmux/plugins/tmux-theme/scripts/theme_menu.sh",
+      "description": "tmux 切换脚本 的路径"
+    },
+    {
+      "name": "tmuxCurrentThemePath",
+      "title": "tmux 当前主题",
+      "type": "textfield",
+      "required": false,
+      "default": "~/.config/tmux/theme/current_theme.conf",
+      "description": "tmux 当前主题 的路径"
+    },
+    {
+      "name": "herdrConfigPath",
+      "title": "Herdr 配置",
+      "type": "textfield",
+      "required": false,
+      "default": "~/.config/herdr/config.toml",
+      "description": "Herdr 配置 的路径"
+    },
+    {
+      "name": "opencodeThemePath",
+      "title": "opencode 主题",
+      "type": "textfield",
+      "required": false,
+      "default": "~/.config/opencode/themes/matheme.json",
+      "description": "opencode 主题 的路径"
+    },
+    {
+      "name": "piControlFilePath",
+      "title": "pi 主题文件",
+      "type": "textfield",
+      "required": false,
+      "default": "~/.pi/agent/pi-theme.json",
+      "description": "pi 主题文件 的路径"
+    },
+    {
+      "name": "rimeConfigDir",
+      "title": "Rime 目录",
+      "type": "textfield",
+      "required": false,
+      "default": "~/Library/Rime",
+      "description": "Rime 目录 的路径"
+    }
+  ],
+  "commands": [
+    {
+      "name": "switch-theme",
+      "title": "Switch Theme",
+      "subtitle": "Matheme",
+      "description": "Pick a theme and apply it everywhere",
+      "mode": "view"
+    },
+    {
+      "name": "next-theme",
+      "title": "Next Theme",
+      "subtitle": "Matheme",
+      "description": "Cycle to the next theme in the list",
+      "mode": "no-view"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.104.20",
+    "@raycast/utils": "^2.2.7"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "^2.2.0",
+    "@types/node": "22.19.17",
+    "@types/react": "19.0.10",
+    "eslint": "^10.5.0",
+    "prettier": "^3.8.5",
+    "typescript": "^6.0.3"
+  },
+  "scripts": {
+    "build": "ray build",
+    "dev": "ray develop",
+    "fix-lint": "ray lint --fix",
+    "lint": "ray lint",
+    "icon": "node scripts/generate-icon.mjs",
+    "publish": "npx @raycast/api@latest publish"
+  }
+}

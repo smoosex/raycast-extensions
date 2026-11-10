@@ -1,0 +1,11 @@
+{
+  "name": "raycast-extensions",
+  "private": true,
+  "workspaces": ["extensions/*"],
+  "scripts": {
+    "build": "for d in extensions/*/; do (cd \"$d\" && bun run build) || exit 1; done",
+    "dev": "cd extensions/matheme && bun run dev",
+    "lint": "for d in extensions/*/; do (cd \"$d\" && bun run lint) || exit 1; done",
+    "fix-lint": "for d in extensions/*/; do (cd \"$d\" && bun run fix-lint) || exit 1; done"
+  }
+}
